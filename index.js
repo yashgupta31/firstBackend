@@ -9,13 +9,19 @@ dotenv.config();
 const PORT= process.env.PORT || 4000
 const app= express();
 
-const corsOptions = {
-    origin: '*',  // Allow this origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow these methods
-    allowedHeaders: ['Content-Type', 'Authorization'],  // Allow these headers
-};
+// const corsOptions = {
+//     origin: '*',  // Allow this origin
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow these methods
+//     allowedHeaders: ['Content-Type', 'Authorization'],  // Allow these headers
+// };
 
-app.use(cors(corsOptions)); // Use cors middleware to allow all origins
+app.use(cors());
+app.options('*', cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.use(express.json());
 app.use('/user',userRouter)
 app.use('/note', noteRouter)
