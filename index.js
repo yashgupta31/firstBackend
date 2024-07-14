@@ -9,7 +9,13 @@ dotenv.config();
 const PORT= process.env.PORT || 4000
 const app= express();
 
-app.use(cors()); // Use cors middleware to allow all origins
+const corsOptions = {
+    origin: '*',  // Allow this origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow these methods
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Allow these headers
+};
+
+app.use(cors(corsOptions)); // Use cors middleware to allow all origins
 app.use(express.json());
 app.use('/user',userRouter)
 app.use('/note', noteRouter)
