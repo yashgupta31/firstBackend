@@ -19,11 +19,11 @@ userRouter.post('/register', (req, res)=>{
             // 39 min
             let user= new UserModel({name, email, password: hash, gender, number});
             await user.save()
-            res.send("New User Registered")
+            res.send({"message":"New User Registered"})
 
         })
     } catch (error) {
-        res.send(`Registration failed ${error}`)
+        res.send({"message":`Registration failed ${error}`})
     }
 
 })
